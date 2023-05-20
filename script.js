@@ -16,45 +16,55 @@ class LinkedList {
   constructor() {
     this.head = null;
   }
-  prepend(value) {
-    let tmp = null;
-    if (this.head != null) tmp = this.head;
-    this.head = new Node(value);
-    this.head.next = tmp;
-  }
-
   append(value) {
-    if (this.head == null) this.prepend(value);
-    else {
-      let tmp = this.head;
-      while (tmp.next != null) tmp = tmp.next;
-      tmp.next = new Node(value);
+    let newNode = new Node(value, this.head);
+    this.head = newNode;
+  }
+  prepend(value) {
+    let tailNode = this.head;
+    while (tailNode.next != null) {
+      tailNode = tailNode.next;
     }
+    let newNode = new Node(value, null);
+    tailNode.next = newNode;
   }
   at(index) {
-    let tmp = this.head;
+    let startingNode = this.head;
     for (let i = 0; i < index; i++) {
-      tmp = tmp.next;
-      if (tmp == null) return "There is no item for this index";
+      startingNode = startingNode.next;
+      if (startingNode == null) return "there's no node for this index";
     }
-    return tmp;
+    return startingNode;
+  }
+  size() {
+    let startingNode = this.head;
+    let counter = 0;
+    while (startingNode != null) {
+      counter++;
+      startingNode = startingNode.next;
+    }
+    return counter;
   }
   getHead() {
     return this.head;
   }
   getTail() {
-    let result = this.at(0);
-    return result;
-  }
-  pop() {}
-  get size() {
-    let temp = this.head;
-    let counter = 0;
-    while (temp != null) {
-      counter++;
-      temp = temp.next;
+    let tailNode = this.head;
+    while (tailNode.next != null) {
+      tailNode = tailNode.next;
     }
-    return counter;
+    return tailNode;
+  }
+  pop() {
+    let almostTailNode = this.head;
+    try {
+      while (almostTailNode.next.next != null) {
+        almostTailNode = almostTailNode.next;
+      }
+      almostTailNode.next = null;
+    } catch {
+      this.head = null;
+    }
   }
 }
 class Node {
@@ -68,9 +78,6 @@ myLinkedList = new LinkedList();
 
 myLinkedList.append("appended number 1");
 myLinkedList.append("appended number 2");
-myLinkedList.prepend("prependeddd");
-myLinkedList.append("appended number 3");
+myLinkedList.pop();
 
-console.log(myLinkedList.size);
-console.log(myLinkedList.getHead());
 console.log(myLinkedList);
