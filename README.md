@@ -9,5 +9,4 @@ While writing this i realized that the the definitions of the commonly used term
 
 to make it more visual i made this:
 
-[ value , link ]   ->   [ value , link ]   ->   [ value , link ]   ->   null
-   head node                                       tail node   
+[(this is the head node) value , link ]   ->   [ value , link ]   ->   [(this is the tail node) value , link ]   ->   null
